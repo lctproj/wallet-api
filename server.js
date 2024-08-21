@@ -36,7 +36,7 @@ app.get('/total-balances/:user_id',async (req, res) => {
         return res.status(200).json(balances);
         
     }catch(err){
-        return res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ "error": 'Internal server error' });
         
     }
 
@@ -74,7 +74,7 @@ app.get('/transfers/:user_id', async (req, res) => {
         return res.status(200).json(transfer_volumes);
         
     }catch(err){
-        return res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ "error": 'Internal server error' });
         
     }
 });
