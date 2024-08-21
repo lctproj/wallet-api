@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
-// Input `npm start server` to start server
+// Input `nodemon server` to start server
 
 
 app.get('/', (req, res) => {
