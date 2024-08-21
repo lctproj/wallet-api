@@ -31,6 +31,13 @@ app.get('/total-balances/:user_id',async (req, res) => {
     console.log('goo');
     try{
         const response = await fs.readFile('./data.json','utf-8');
+        /*
+        In the case of remote URL:
+        
+        const response = await fetch(`${process.env.URL});
+        where the URL is saved in the .env file
+        */
+
         const data = JSON.parse(response);
 
         const user = data.find((obj) => obj.user_id == user_id);
@@ -53,6 +60,14 @@ app.get('/transfers/:user_id', async (req, res) => {
 
     try{
         const response = await fs.readFile('./data.json','utf-8');
+
+        /*
+        In the case of remote URL:
+        
+        const response = await fetch(`${process.env.URL}`);
+        where the URL is saved in the .env file
+        */
+
         const data = JSON.parse(response);
 
         const user = data.find((obj) => obj.user_id == user_id);
