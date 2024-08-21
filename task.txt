@@ -1,0 +1,4 @@
+Task Description
+Build a simple API server
+- An endpoint returns a wallet's balances of USDC, USDT and ETH
+- An endpoint summarises a wallet's total transfer volume of USDC, USDT, and ETH in past 24 hours 

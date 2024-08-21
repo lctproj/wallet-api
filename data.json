@@ -1,0 +1,51 @@
+[
+    {
+        "user_id": "1",
+        "balances": {
+            "USDC": 1000.0,
+            "USDT": 2000.0,
+            "ETH": 5.0
+          },
+        "transfers": [
+        {
+            "currency": "USDC",
+            "amount": 13.0,
+            "timestamp": "2024-08-21T05:22:10",
+            "recipient_id":"5"
+        },
+        {
+            "currency": "USDT",
+            "amount": 47.0,
+            "timestamp": "2024-08-20T23:16:17",
+            "recipient_id":"3"
+        },
+        {
+            "currency": "ETH",
+            "amount": 3.14,
+            "timestamp": "2024-08-20T19:43:02",
+            "recipient_id":"7"
+        },
+        {
+            "currency": "USDC",
+            "amount": 10.0,
+            "timestamp": "2024-08-20T15:20:00",
+            "recipient_id":"23"
+        },
+        {
+            "currency": "ETH",
+            "amount": 0.5,
+            "timestamp": "2024-08-20T10:00:00",
+            "recipient_id":"32"
+        }
+        ]
+    },
+    {
+        "user_id": "2",
+        "balances": {
+            "USDC": 0.0,
+            "USDT": 0.0,
+            "ETH": 0.0
+          },
+        "transfers": []
+    }
+]
