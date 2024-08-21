@@ -15,7 +15,7 @@
         },
         {
             "currency": "USDT",
-            "amount": 47.0,
+            "amount": -47.0,
             "timestamp": "2024-08-20T23:16:17",
             "recipient_id":"3"
         },
@@ -27,13 +27,13 @@
         },
         {
             "currency": "USDC",
-            "amount": 10.0,
+            "amount": -10.0,
             "timestamp": "2024-08-20T15:20:00",
             "recipient_id":"23"
         },
         {
             "currency": "ETH",
-            "amount": 0.5,
+            "amount": -0.5,
             "timestamp": "2024-08-20T10:00:00",
             "recipient_id":"32"
         }
