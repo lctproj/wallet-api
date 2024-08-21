@@ -36,7 +36,7 @@ app.get('/total-balances/:user_id',async (req, res) => {
         return res.status(200).json(balances);
         
     }catch(err){
-        return res.status(500);
+        return res.status(500).json({ error: 'Internal server error' });
         
     }
 
@@ -50,6 +50,9 @@ app.get('/transfers/:user_id', async (req, res) => {
         const data = JSON.parse(response);
 
         const user = data.find((obj) => obj.user_id == user_id);
+        if(!user){
+            return res.status(404).json({"message": 'User not found'});
+        }
 
         const current_time = new Date("2024-08-21T08:00:10"); //new Date();
 
@@ -71,7 +74,7 @@ app.get('/transfers/:user_id', async (req, res) => {
         return res.status(200).json(transfer_volumes);
         
     }catch(err){
-        return res.status(500);
+        return res.status(500).json({ error: 'Internal server error' });
         
     }
 });
