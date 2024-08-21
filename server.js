@@ -16,7 +16,7 @@ app.use(helmet());
 // Input `nodemon server` to start server
 const limiter = rateLimit({
     windowMs: 6000,
-    max: 20,
+    max: 10,
   });
   
 app.use(limiter);
