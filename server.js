@@ -1,19 +1,25 @@
-
+const helmet = require('helmet');
 const express = require('express');
 const cors = require('cors');
 const currency = require('currency.js');
 require('dotenv').config();
 const fs = require('fs').promises;
-
+const rateLimit = require('express-rate-limit');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 
 // Input `nodemon server` to start server
-
+const limiter = rateLimit({
+    windowMs: 6000,
+    max: 20,
+  });
+  
+app.use(limiter);
 
 app.get('/', (req, res) => {
     res.status(200).json({"message": "server is running"});	
@@ -54,7 +60,7 @@ app.get('/transfers/:user_id', async (req, res) => {
             return res.status(404).json({"message": 'User not found'});
         }
 
-        const current_time = new Date("2024-08-21T08:00:10"); //new Date();
+        const current_time = new Date("2024-08-21T08:00:10"); //replace with generic new Date() when completed testing
 
         const recent_transfers = user.transfers.filter((transfer) => {
             const transfer_time = new Date(transfer.timestamp);
