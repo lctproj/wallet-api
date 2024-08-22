@@ -22,9 +22,23 @@ const limiter = rateLimit({
   
 app.use(limiter);
 
-const fetchData = (url: string) =>{
+type Balance = {
+    "USDC": number,
+    "USDT": number,
+    "ETH" : number 
+}
 
-};
+type Transfer = {
+    "currency": "USDC" | "USDT" | "ETH",
+    "amount": number,
+    "timestamp": string,
+}
+
+type User = {
+    "user_id": string,
+    "balances": Balance,
+    "transfers": Transfer[]
+}
 
 app.get('/', (req: Request, res: Response) => {
     res.status(200).json({"message": "server is running"});	
@@ -60,24 +74,30 @@ app.get('/transfers/:user_id', async (req, res) => {
     try{
         const response = process.env.URL ?  await fetch(`${process.env.URL}`) : await fs.readFile('./data.json','utf-8');
 
-        const data = JSON.parse(response);
+        const data  = JSON.parse(response);
 
-        const user = data.find((obj: { user_id: string; }) => obj.user_id == user_id);
+        const user   = data.find((obj: { user_id: string; }) => obj.user_id == user_id);
+        console.log(typeof(user));
         if(!user){
             return res.status(404).json({"message": 'User not found'});
         }
 
-        const current_time = new Date("2024-08-21T08:00:10").getTime(); //replace with generic new Date() when completed testing
+        const current_time :number = new Date("2024-08-21T08:00:10").getTime(); //replace with generic new Date() when completed testing
 
-        const recent_transfers = user.transfers.filter((transfer: { timestamp: string | number | Date; }) => {
+        const recent_transfers   = user.transfers.filter((transfer: { timestamp: string | number | Date; }) => {
             const transfer_time = new Date(transfer.timestamp).getTime();
             return current_time - transfer_time <= 86400000;
         });
 
-        const USDT_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'USDT').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0)).value;
+        console.log(typeof(recent_transfers));
+
+        const USDT_sum :number = recent_transfers
+            .filter((transfer: { currency: string; }) => transfer.currency === 'USDT')
+            .reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0))
+            .value;
         console.log(typeof(USDT_sum));
-        const USDC_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'USDC').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0)).value;
-        const ETH_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'ETH').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0)).value;
+        const USDC_sum :number= recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'USDC').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0)).value;
+        const ETH_sum :number= recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'ETH').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0)).value;
 
         const transfer_volumes = {
             "USDT_volumes": USDT_sum,
