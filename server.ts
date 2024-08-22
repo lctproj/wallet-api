@@ -35,7 +35,7 @@ type Transfer = {
 }
 
 type User = {
-    "user_id": string,
+    "user_id": string ,
     "balances": Balance,
     "transfers": Transfer[]
 }
@@ -57,7 +57,7 @@ app.get('/total-balances/:user_id',async (req: Request, res: Response) => {
         if(!user){
             return res.status(404).json({"message": 'User not found'});
         }
-        const balances = user.balances;
+        const balances : Balance = user.balances;
 
         return res.status(200).json(balances);
         
@@ -76,6 +76,7 @@ app.get('/transfers/:user_id', async (req, res) => {
 
         const data  = JSON.parse(response);
 
+        console.log('data:' + typeof(data));
         const user   = data.find((obj: { user_id: string; }) => obj.user_id == user_id);
         console.log(typeof(user));
         if(!user){
@@ -84,7 +85,7 @@ app.get('/transfers/:user_id', async (req, res) => {
 
         const current_time :number = new Date("2024-08-21T08:00:10").getTime(); //replace with generic new Date() when completed testing
 
-        const recent_transfers   = user.transfers.filter((transfer: { timestamp: string | number | Date; }) => {
+        const recent_transfers  = user.transfers.filter((transfer: { timestamp: string | number | Date; }) => {
             const transfer_time = new Date(transfer.timestamp).getTime();
             return current_time - transfer_time <= 86400000;
         });
