@@ -74,9 +74,10 @@ app.get('/transfers/:user_id', async (req, res) => {
             return current_time - transfer_time <= 86400000;
         });
 
-        const USDT_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'USDT').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0));
-        const USDC_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'USDC').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0));
-        const ETH_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'ETH').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0));
+        const USDT_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'USDT').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0)).value;
+        console.log(typeof(USDT_sum));
+        const USDC_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'USDC').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0)).value;
+        const ETH_sum = recent_transfers.filter((transfer: { currency: string; }) => transfer.currency === 'ETH').reduce((sum: { add: (arg0: any) => any; }, transfer: { amount: any; }) => sum.add(transfer.amount), currency(0)).value;
 
         const transfer_volumes = {
             "USDT_volumes": USDT_sum,
