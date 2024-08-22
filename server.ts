@@ -16,7 +16,7 @@ app.use(helmet());
 
 // Input `npm run dev` to start server
 const limiter = rateLimit({
-    windowMs: 6000,
+    windowMs: 60000,
     max: 10,
   });
   
