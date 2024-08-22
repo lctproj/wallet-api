@@ -22,6 +22,10 @@ const limiter = rateLimit({
   
 app.use(limiter);
 
+const fetchData = (url: string) =>{
+
+};
+
 app.get('/', (req: Request, res: Response) => {
     res.status(200).json({"message": "server is running"});	
 
@@ -30,14 +34,9 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/total-balances/:user_id',async (req: Request, res: Response) => {
     const {user_id} = req.params;
     try{
-        const response = await fs.readFile('./data.json','utf-8');
-        /*
-        In the case of remote URL:
-        
-        const response = await fetch(`${process.env.URL});
-        where the URL is saved in the .env file
-        */
 
+
+        const response = process.env.URL ?  await fetch(`${process.env.URL}`) : await fs.readFile('./data.json','utf-8');
         const data = JSON.parse(response);
 
         const user = data.find((obj: { user_id: string; }) => obj.user_id == user_id);
@@ -59,14 +58,7 @@ app.get('/transfers/:user_id', async (req, res) => {
     const {user_id} = req.params;
 
     try{
-        const response = await fs.readFile('./data.json','utf-8');
-
-        /*
-        In the case of remote URL:
-        
-        const response = await fetch(`${process.env.URL}`);
-        where the URL is saved in the .env file
-        */
+        const response = process.env.URL ?  await fetch(`${process.env.URL}`) : await fs.readFile('./data.json','utf-8');
 
         const data = JSON.parse(response);
 
